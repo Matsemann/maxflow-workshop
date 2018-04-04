@@ -35,6 +35,18 @@ var config = {
                 use: ExtractTextPlugin.extract({
                     use: 'css-loader'
                 })
+            },
+            {
+                test: /.*\.png$/i,
+                loaders: [ 'file-loader', {
+                    loader: 'image-webpack-loader',
+                    query: {
+                        pngquant: {
+                            quality: '65-90',
+                            speed: 4
+                        }
+                    }
+                }]
             }
         ]
     },

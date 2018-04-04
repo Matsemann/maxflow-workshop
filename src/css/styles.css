@@ -1,3 +1,17 @@
 body {
     background: #eee;
 }
+
+#network {
+    width: 800px;
+    height: 600px;
+    border: 1px solid black;
+    float: left;
+}
+
+#controls {
+    float: right;
+    width: 600px;
+    height: 800px;
+    overflow: auto;
+}
