@@ -1,5 +1,21 @@
 # Max flow workshop
 
+A workshop where you
+* Write an algorithm to solve maximum flow problems (Ford-Fulkerson/Edmonds-Karp)
+* Model problems as max flow problems
+* ... in your browser
+
+### To run
+
+```
+npm install
+npm start
+```
+
+Then browse to http://localhost:8099
+
+Edit the files and refresh your browser to see the changes
+
 ##TODO
 
 * Render
