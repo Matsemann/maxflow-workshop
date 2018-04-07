@@ -2,9 +2,11 @@ import {DataSet, Network as VisNetwork} from 'vis/index-network';
 
 export class Renderer {
 
-    constructor(container, debugContainer, flowNetwork) {
+    constructor(container, debugContainer, flowNetwork, forceRandom = false) {
         this.flowNetwork = flowNetwork;
-        this.levels = findLevels(flowNetwork);
+        if (!forceRandom) {
+            this.levels = findLevels(flowNetwork);
+        }
 
         const options = getRenderingOptions(debugContainer, this.levels != null);
         const emptyData = {};
@@ -63,7 +65,8 @@ function findLevels(network) {
 
     while (queue.length !== 0) {
         if (queue.length > networkSize * 2) {
-            console.log("Seems like the network contains a cycle, using alternative renderer instead of displaying hierarchically");
+            console.log(
+                "Seems like the network contains a cycle, using alternative renderer instead of displaying hierarchically");
             return null;
         }
 
@@ -74,6 +77,44 @@ function findLevels(network) {
             queue.push(edge);
         });
     }
+
+
+    // trying to merge levels
+    let count = [];
+    let max = 0;
+    for (let node in levels) {
+        const level = levels[node];
+        if (count[level]) {
+            count[level]++;
+        } else {
+            count[level] = 1;
+        }
+        if (level > max) {
+            max = level;
+        }
+    }
+
+    for (let i = 1; i < max - 1; i++) {
+        if (i > networkSize) {
+            break;
+        }
+        if (count[i] === 1 && count[i + 1] === 1) {
+
+            count[i] = 2;
+            max--;
+            for (let j = i + 1; j < max; j++) {
+                count[j] = count[j + 1];
+            }
+
+            for (let node in levels) {
+                const level = levels[node];
+                if (level > i) {
+                    levels[node]--;
+                }
+            }
+        }
+    }
+
 
     return levels;
 }

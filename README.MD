@@ -19,17 +19,13 @@ Edit the files and refresh your browser to see the changes
 ##TODO
 
 * Render
-  * Render based on input graph
-  * Calculate correct level for nodes
-  * Add flow as label to edges and scale them
+  * Option to rerender when all logic fails..
 * UI
   * Select network, show it
   * Press button to solve
   * ability to add new networks
 * Algorithm
-  * Representation, node objects?
-  * Unit tests?
-  * getNode(id);
+  * Unit tests, some more
 * Tasks
   * Explain datamodel, network -> model
   * Fill in blanks to make the algorithm solve the various networks

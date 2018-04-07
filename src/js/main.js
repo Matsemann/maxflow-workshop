@@ -3,6 +3,9 @@ import 'vis/dist/vis-network.min.css';
 import {Renderer} from "./renderer";
 import {FlowNetwork} from "./network";
 import {calculateMaxFlow} from "./maxflow";
+import {testSuite} from "./unittests";
+
+testSuite();
 
 const container = document.getElementById("network");
 const debug = document.getElementById("controls");
@@ -55,11 +58,37 @@ function net2() {
     return net;
 }
 
-const network = net2();
-const network2 = net1();
+function net3() {
+    const net = new FlowNetwork();
 
-let renderer = new Renderer(container, debug, network);
+    net.createNode("1");
+    net.createNode("2");
+    net.createNode("3");
+    net.createNode("4");
+    net.createNode("5");
+
+    net.createEdge("source", "1", 10);
+    net.createEdge("source", "2", 10);
+    net.createEdge("1", "2", 2);
+    net.createEdge("1", "3", 4);
+    net.createEdge("1", "4", 8);
+    net.createEdge("2", "4", 9);
+    net.createEdge("2", "5", 1);
+    net.createEdge("5", "3", 1);
+    net.createEdge("3", "sink", 10);
+    net.createEdge("4", "3", 6);
+    net.createEdge("4", "sink", 10);
+
+    return net;
+}
+
+const network = net3();
+const network2 = net2();
+
+let renderer = new Renderer(container, debug, network, true);
+calculateMaxFlow(network);
 renderer.renderNetwork();
+/*
 setTimeout(() => {
     const maxflow = calculateMaxFlow(network);
     renderer.renderNetwork();
@@ -74,4 +103,4 @@ setTimeout(() => {
 setTimeout(() => {
     calculateMaxFlow(network2);
     renderer.renderNetwork();
-}, 3000);
+}, 3000);*/
