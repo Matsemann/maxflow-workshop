@@ -34,8 +34,44 @@ function net1() {
     return net;
 }
 
-const renderer = new Renderer(container, debug);
-const network = net1();
-const maxflow = calculateMaxFlow(network);
-console.log(maxflow);
-renderer.renderNetwork(network);
+function net2() {
+    const net = new FlowNetwork();
+
+    net.createNode("1");
+    net.createNode("2");
+    net.createNode("3");
+    net.createNode("4");
+
+    net.createEdge("source", "1", 16);
+    net.createEdge("source", "2", 13);
+    net.createEdge("1", "3", 12);
+    net.createEdge("2", "1", 4);
+    net.createEdge("2", "4", 14);
+    net.createEdge("3", "2", 9);
+    net.createEdge("3", "sink", 20);
+    net.createEdge("4", "3", 7);
+    net.createEdge("4", "sink", 4);
+
+    return net;
+}
+
+const network = net2();
+const network2 = net1();
+
+let renderer = new Renderer(container, debug, network);
+renderer.renderNetwork();
+setTimeout(() => {
+    const maxflow = calculateMaxFlow(network);
+    renderer.renderNetwork();
+}, 1000);
+
+setTimeout(() => {
+    renderer.destroy();
+    renderer = new Renderer(container, debug, network2);
+    renderer.renderNetwork();
+}, 2000);
+
+setTimeout(() => {
+    calculateMaxFlow(network2);
+    renderer.renderNetwork();
+}, 3000);

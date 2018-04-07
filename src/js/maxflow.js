@@ -64,7 +64,6 @@ function updateResiduals(network, flow) {
 function breadthFirst(network) {
     const visited = [];
     const queue = ["source"];
-    console.log("bfs");
 
     while (queue.length !== 0) {
         const nodeName = queue.shift();
