@@ -1,6 +1,6 @@
 
 
-export class Network {
+export class FlowNetwork {
     constructor() {
         this.nodes = {};
 
@@ -30,8 +30,8 @@ export class Network {
         const toNode = this.getNode(to);
 
         fromNode.edgeCapacities[toNode.name] = capacity;
-        fromNode.residual[toNode.name] = capacity;
-        toNode.residual[fromNode.name] = 0;
+        fromNode.residuals[toNode.name] = capacity;
+        toNode.residuals[fromNode.name] = 0;
     }
 
     /**
@@ -46,7 +46,6 @@ export class Network {
 export class Node {
     /**
      * Don't call this directly, create it through the network
-     * @param network
      * @param name
      */
     constructor(name) {
@@ -56,7 +55,8 @@ export class Node {
          * Map where key is name of other node,
          * value is residual left
          */
-        this.residual = {};
+        this.residuals = {};
+
         /**
          * Name of the parent during residual search
          */
