@@ -19,7 +19,7 @@ Edit the files and refresh your browser to see the changes
 ##TODO
 
 * Render
-  * Option to rerender when all logic fails..
+  * Step possible?
 * UI
   * Select network, show it
   * Press button to solve

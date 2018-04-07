@@ -40,10 +40,11 @@ function net1() {
 function net2() {
     const net = new FlowNetwork();
 
-    net.createNode("1");
-    net.createNode("2");
-    net.createNode("3");
-    net.createNode("4");
+    net.createNode("1", 1);
+    net.createNode("2", 1);
+    net.createNode("3", 2);
+    net.createNode("4", 2);
+    net.getNode("sink").level = 3;
 
     net.createEdge("source", "1", 16);
     net.createEdge("source", "2", 13);
@@ -55,6 +56,7 @@ function net2() {
     net.createEdge("4", "3", 7);
     net.createEdge("4", "sink", 4);
 
+
     return net;
 }
 
@@ -65,7 +67,6 @@ function net3() {
     net.createNode("2");
     net.createNode("3");
     net.createNode("4");
-    net.createNode("5");
 
     net.createEdge("source", "1", 10);
     net.createEdge("source", "2", 10);
@@ -73,8 +74,6 @@ function net3() {
     net.createEdge("1", "3", 4);
     net.createEdge("1", "4", 8);
     net.createEdge("2", "4", 9);
-    net.createEdge("2", "5", 1);
-    net.createEdge("5", "3", 1);
     net.createEdge("3", "sink", 10);
     net.createEdge("4", "3", 6);
     net.createEdge("4", "sink", 10);
@@ -82,10 +81,9 @@ function net3() {
     return net;
 }
 
-const network = net3();
-const network2 = net2();
+const network = net2();
 
-let renderer = new Renderer(container, debug, network, true);
+let renderer = new Renderer(container, debug, network);
 calculateMaxFlow(network);
 renderer.renderNetwork();
 /*

@@ -2,13 +2,13 @@ import {DataSet, Network as VisNetwork} from 'vis/index-network';
 
 export class Renderer {
 
-    constructor(container, debugContainer, flowNetwork, forceRandom = false) {
+    constructor(container, debugContainer, flowNetwork) {
         this.flowNetwork = flowNetwork;
-        if (!forceRandom) {
+        if (!flowNetwork.hasLevels) {
             this.levels = findLevels(flowNetwork);
         }
 
-        const options = getRenderingOptions(debugContainer, this.levels != null);
+        const options = getRenderingOptions(debugContainer, this.levels != null || flowNetwork.hasLevels);
         const emptyData = {};
 
         this.network = new VisNetwork(container, emptyData, options);
@@ -20,7 +20,7 @@ export class Renderer {
             id: node.name,
             label: node.name,
             title: node.name,
-            level: this.levels && this.levels[node.name] || 0,
+            level: node.level || this.levels && this.levels[node.name] || 0,
             color: ["source", "sink"].includes(node.name) ? "#7b6b60" : undefined,
         }));
 
@@ -128,7 +128,7 @@ function getRenderingOptions(debugContainer, hierarchical) {
         layout: {
             improvedLayout: true,
             hierarchical: {
-                enabled: hierarchical,
+                enabled: true,
                 direction: 'LR',
                 parentCentralization: false,
                 sortMethod: "directed"
