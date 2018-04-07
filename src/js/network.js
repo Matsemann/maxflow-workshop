@@ -19,13 +19,39 @@ export class Network {
         return node;
     }
 
+    /**
+     * Create edge of capacity between two nodes
+     * @param from {String}
+     * @param to {String}
+     * @param capacity {Number}
+     */
+    createEdge(from, to, capacity) {
+        const fromNode = this.getNode(from);
+        const toNode = this.getNode(to);
+
+        fromNode.edgeCapacities[toNode.name] = capacity;
+        fromNode.residual[toNode.name] = capacity;
+        toNode.residual[fromNode.name] = 0;
+    }
+
+    /**
+     * @param name {String}
+     * @returns {Node}
+     */
     getNode(name) {
         return this.nodes[name];
     }
 
+    /**
+     * @returns {Node}
+     */
     getSource() {
         return this.getNode("source");
     }
+
+    /**
+     * @returns {Node}
+     */
     getSink() {
         return this.getNode("sink");
     }
@@ -47,8 +73,7 @@ export class Node {
         this.residual = {};
         this.residualParent = "";
 
-        // For rendering only
-        this.outEdges = {};
+        this.edgeCapacities = {};
     }
 
     /**
@@ -57,7 +82,7 @@ export class Node {
      * @param capacity
      */
     addEdge(toNode, capacity) {
-        this.outEdges[toNode.name] = capacity;
+        this.edgeCapacities[toNode.name] = capacity;
         this.residual[toNode.name] = capacity;
         toNode.residual[this.name] = 0;
     }
