@@ -4,8 +4,8 @@ export class Network {
     constructor() {
         this.nodes = {};
 
-        this.nodes.source = new Node(this, "source");
-        this.nodes.sink = new Node(this, "sink");
+        this.nodes.source = new Node("source");
+        this.nodes.sink = new Node("sink");
     }
 
     /**
@@ -14,7 +14,7 @@ export class Network {
      * @returns {Node}
      */
     createNode(name) {
-        const node = new Node(this, name);
+        const node = new Node(name);
         this.nodes[name] = node;
         return node;
     }
@@ -41,49 +41,32 @@ export class Network {
     getNode(name) {
         return this.nodes[name];
     }
-
-    /**
-     * @returns {Node}
-     */
-    getSource() {
-        return this.getNode("source");
-    }
-
-    /**
-     * @returns {Node}
-     */
-    getSink() {
-        return this.getNode("sink");
-    }
-
 }
 
-/**
- * LALALA
- */
 export class Node {
     /**
-     * Don't call this, create it through the network
+     * Don't call this directly, create it through the network
      * @param network
      * @param name
      */
-    constructor(network, name) {
-        this.network = network;
+    constructor(name) {
         this.name = name;
+
+        /**
+         * Map where key is name of other node,
+         * value is residual left
+         */
         this.residual = {};
+        /**
+         * Name of the parent during residual search
+         */
         this.residualParent = "";
 
+        /**
+         * Map where key is name of other node,
+         * value is original capacity of the edge between them
+         */
         this.edgeCapacities = {};
     }
 
-    /**
-     *
-     * @param toNode {Node}
-     * @param capacity
-     */
-    addEdge(toNode, capacity) {
-        this.edgeCapacities[toNode.name] = capacity;
-        this.residual[toNode.name] = capacity;
-        toNode.residual[this.name] = 0;
-    }
 }

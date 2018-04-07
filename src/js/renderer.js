@@ -16,7 +16,7 @@ export class Renderer {
             id: node.name,
             label: node.name,
             title: node.name,
-            level: levels[node.name]
+            level: levels[node.name] || 0
         }));
 
         const edges = Object.values(network.nodes).map(node => (
@@ -48,7 +48,7 @@ function findLevels(network) {
     // const visited = [];
     const queue = [];
 
-    const source = network.getSource();
+    const source = network.getNode("source");
     levels[source.name] = 0;
     queue.push(source.name);
 
