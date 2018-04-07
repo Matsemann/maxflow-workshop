@@ -17,7 +17,7 @@ export function calculateMaxFlow(network) {
  * @param network {FlowNetwork}
  * @returns {number}
  */
-function findMinResidual(network) {
+export function findMinResidual(network) {
     let min = Number.MAX_SAFE_INTEGER;
     let v = network.getNode("sink");
     while (v.name !== "source") {
