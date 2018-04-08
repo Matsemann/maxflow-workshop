@@ -1,11 +1,11 @@
 import {FlowNetwork} from "./network";
-import {breadthFirst, calculateMaxFlow, findMinResidual, finishAlgorithm} from "./maxflow";
+import {breadthFirst, calculateMaxFlow, findMinResidual, finishAlgorithm, updateResiduals} from "./maxflow";
 
 export function testSuite() {
     const results = {};
 
-    describe("breadth first", () => {
-        it("for a simple graph", () => {
+    describe("breadth first residual path", () => {
+        it("should find residual path for a simple graph", () => {
             const net = new FlowNetwork();
             net.createNode("1");
             net.createEdge("source", "1", 2);
@@ -15,7 +15,7 @@ export function testSuite() {
             expect("1", net.getNode("sink").residualParent);
             expect("source", net.getNode("1").residualParent);
         });
-        it("for a graph where residue left i 0", () => {
+        it("should not find path for a graph where residual left is 0", () => {
             const net = new FlowNetwork();
             net.createNode("1");
             net.createEdge("source", "1", 2);
@@ -26,7 +26,7 @@ export function testSuite() {
 
             expect(false, breadthFirst(net));
         });
-        it("for a graph where it needs to backtrack", () => {
+        it("should find path for a graph where it needs to backtrack", () => {
             const net = new FlowNetwork();
 
             net.createNode("l1");
@@ -51,7 +51,7 @@ export function testSuite() {
 
             expect(true, breadthFirst(net));
             expect("r2", net.getNode("sink").residualParent);
-            expect("l2", net.getNode("r2").residualParent);
+            expect("l1", net.getNode("r2").residualParent);
             expect("r1", net.getNode("l1").residualParent);
             expect("l2", net.getNode("r1").residualParent);
             expect("source", net.getNode("l2").residualParent);
@@ -61,7 +61,7 @@ export function testSuite() {
 
 
     describe("find min residual", () => {
-        it("for one node only", () => {
+        it("should find min for simple network with one node", () => {
             const net = new FlowNetwork();
             net.createNode("1");
             net.createEdge("source", "1", 2);
@@ -72,7 +72,7 @@ export function testSuite() {
 
             expect(2, findMinResidual(net));
         });
-        it("for multiple nodes and updated residuals", () => {
+        it("should find min for multiple nodes and updated residuals", () => {
             const net = new FlowNetwork();
             net.createNode("1");
             net.createNode("2");
@@ -100,7 +100,7 @@ export function testSuite() {
 
             expect(3, findMinResidual(net));
         });
-        it("for when backtracking flow", () => {
+        it("should find min for case when backtracking flow", () => {
             const net = new FlowNetwork();
             net.createNode("1");
             net.createNode("2");
@@ -123,8 +123,23 @@ export function testSuite() {
 
 
     describe("update residual", () => {
-        it("should work", () => {
-            expect("a", "a");
+        it("should set residual both ways", () => {
+            const net = new FlowNetwork();
+            net.createNode("1");
+
+            net.createEdge("source", "1", 3);
+            net.createEdge("1", "sink", 2);
+
+            net.getNode("sink").residualParent = "1";
+            net.getNode("1").residualParent = "source";
+
+            updateResiduals(net, 2);
+
+            expect(1, net.getNode("source").residuals["1"]);
+            expect(0, net.getNode("1").residuals["sink"]);
+
+            expect(2, net.getNode("sink").residuals["1"]);
+            expect(2, net.getNode("1").residuals["source"]);
         });
         results.update = true;
     });

@@ -72,7 +72,7 @@ export function findMinResidual(network) {
  * @param network {FlowNetwork}
  * @param flow
  */
-function updateResiduals(network, flow) {
+export function updateResiduals(network, flow) {
     let v = network.getNode("sink");
     while (v.name !== "source") {
         let u = network.getNode(v.residualParent);
