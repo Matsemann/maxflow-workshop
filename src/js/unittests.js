@@ -1,18 +1,60 @@
 import {FlowNetwork} from "./network";
-import {calculateMaxFlow, findMinResidual} from "./maxflow";
+import {breadthFirst, calculateMaxFlow, findMinResidual, finishAlgorithm} from "./maxflow";
 
 export function testSuite() {
     const results = {};
 
     describe("breadth first", () => {
         it("for a simple graph", () => {
-            expect("a", "a");
+            const net = new FlowNetwork();
+            net.createNode("1");
+            net.createEdge("source", "1", 2);
+            net.createEdge("1", "sink", 5);
+
+            expect(true, breadthFirst(net));
+            expect("1", net.getNode("sink").residualParent);
+            expect("source", net.getNode("1").residualParent);
         });
-        it("for a graph where residue is 0", () => {
-            expect("a", "a");
+        it("for a graph where residue left i 0", () => {
+            const net = new FlowNetwork();
+            net.createNode("1");
+            net.createEdge("source", "1", 2);
+            net.createEdge("1", "sink", 5);
+
+            net.getNode("1").residuals["sink"] = 0;
+            net.getNode("sink").residuals["1"] = 5;
+
+            expect(false, breadthFirst(net));
         });
         it("for a graph where it needs to backtrack", () => {
-            expect("a", "a");
+            const net = new FlowNetwork();
+
+            net.createNode("l1");
+            net.createNode("l2");
+            net.createNode("r1");
+            net.createNode("r2");
+
+            net.createEdge("source", "l1", 1);
+            net.createEdge("source", "l2", 1);
+            net.createEdge("l1", "r1", 1);
+            net.createEdge("l1", "r2", 1);
+            net.createEdge("l2", "r1", 1);
+            net.createEdge("r1", "sink", 1);
+            net.createEdge("r2", "sink", 1);
+
+            // Assuming source -> l1 -> r1 -> sink has been used,
+            // updating residuals to match
+            net.getNode("source").residuals["l1"] = 0;
+            net.getNode("l1").residuals = {"source": 1, "r1": 0, "r2": 1};
+            net.getNode("r1").residuals = {"l1": 1, "l2": 0, "sink": 0};
+            net.getNode("sink").residuals = {"r1": 1, "r2": 0};
+
+            expect(true, breadthFirst(net));
+            expect("r2", net.getNode("sink").residualParent);
+            expect("l2", net.getNode("r2").residualParent);
+            expect("r1", net.getNode("l1").residualParent);
+            expect("l2", net.getNode("r1").residualParent);
+            expect("source", net.getNode("l2").residualParent);
         });
         results.breadth = true;
     });
@@ -99,7 +141,7 @@ export function testSuite() {
                 net.createEdge("1", "sink", 3);
                 net.createEdge("2", "sink", 1);
 
-               expect(3, calculateMaxFlow(net));
+                expect(3, finishAlgorithm(calculateMaxFlow(net)));
             });
             results.flow = true;
         });

@@ -1,4 +1,13 @@
-
+/**
+ * The main loop of the flow algorithm,
+ * you don't need to change this function, but
+ * should implement the functions it calls below
+ *
+ * Ignore the "yields", they are for making it possible
+ * to step through it in the UI
+ * @param network {FlowNetwork}
+ * @returns {number}
+ */
 export function* calculateMaxFlow(network) {
     let maxFlow = 0;
 
@@ -20,6 +29,19 @@ export function* calculateMaxFlow(network) {
 }
 
 /**
+ * Util for running the loop in the main algorithm until completion
+ */
+export function finishAlgorithm(algorithm) {
+    let result = algorithm.next();
+    while (!result.done) {
+        result = algorithm.next();
+    }
+    return result.value;
+}
+
+/**
+ * IMPLEMENT THIS
+ *
  * Go backwards from the sink to the source using the residual parents.
  * Return the most flow that can be added through that path
  * @param network {FlowNetwork}
@@ -41,6 +63,8 @@ export function findMinResidual(network) {
 }
 
 /**
+ * IMPLEMENT THIS
+ *
  * Go backwards from the sink and update the
  * residuals for the selected path with the
  * flow previously found
@@ -60,6 +84,7 @@ function updateResiduals(network, flow) {
 }
 
 /**
+ * IMPLEMENT THIS
  *
  * Start at the sink node, do a breadth first search
  * Remember to set the residualParent of a node when visiting it
@@ -69,7 +94,7 @@ function updateResiduals(network, flow) {
  * @param network {FlowNetwork}
  * @returns {boolean} If a path was found
  */
-function breadthFirst(network) {
+export function breadthFirst(network) {
     const visited = [];
     const queue = ["source"];
 

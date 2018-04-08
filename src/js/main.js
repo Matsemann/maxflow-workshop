@@ -2,10 +2,10 @@ import css from '../css/styles.css';
 import 'vis/dist/vis-network.min.css';
 import {Renderer} from "./renderer";
 import {FlowNetwork} from "./network";
-import {calculateMaxFlow} from "./maxflow";
+import {calculateMaxFlow, finishAlgorithm} from "./maxflow";
 import {testSuite} from "./unittests";
 
-// testSuite();
+testSuite();
 
 const container = document.getElementById("network");
 const debug = document.getElementById("controls");
@@ -134,26 +134,31 @@ function bipartite2() {
 const network = bipartite2();
 let renderer = new Renderer(container, debug, network);
 renderer.renderNetwork();
-const iterator = calculateMaxFlow(network);
+const algorithm = calculateMaxFlow(network);
 
 document.getElementById("next").addEventListener("click", iteratorFunc());
 
 document.getElementById("finish").addEventListener("click", () => {
-    while (!iterator.next().done) {
-    }
-    document.getElementById("status").innerText = "Done";
+    const maxFlow = finishAlgorithm(algorithm);
     renderer.renderNetwork();
+    renderDone(maxFlow);
 });
 
 function iteratorFunc() {
     let state = 0;
     return () => {
-        const value = iterator.next();
+        const result = algorithm.next();
         renderer.renderNetwork(state % 2 === 0);
         state = (state + 1) % 2;
-        if (value.done) {
+        if (result.done) {
             renderer.renderNetwork();
-            document.getElementById("status").innerText = "Done";
+            renderDone(result.value)
         }
     }
+}
+
+function renderDone(maxFlow) {
+    const message = "Done, max flow: " + maxFlow;
+    document.getElementById("status").innerText = message ;
+
 }

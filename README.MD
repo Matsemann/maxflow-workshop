@@ -19,7 +19,6 @@ Edit the files and refresh your browser to see the changes
 ##TODO
 
 * Render
-  * Step possible?
 * UI
   * Select network, show it
   * Press button to solve
