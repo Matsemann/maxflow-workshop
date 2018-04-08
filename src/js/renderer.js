@@ -14,7 +14,7 @@ export class Renderer {
         this.network = new VisNetwork(container, emptyData, options);
     }
 
-    renderNetwork() {
+    renderNetwork(showResidualPath = false) {
         const network = this.flowNetwork;
         const nodes = Object.values(network.nodes).map(node => ({
             id: node.name,
@@ -24,19 +24,37 @@ export class Renderer {
             color: ["source", "sink"].includes(node.name) ? "#7b6b60" : undefined,
         }));
 
+        let residualEdges;
+        if (showResidualPath) {
+            residualEdges = findResidualEdges(network);
+        }
+
         // whops..
         const edges = Object.values(network.nodes).map(node => (
             Object.keys(node.edgeCapacities).map(key => {
                 const capacity = node.edgeCapacities[key];
                 const residual = node.residuals[key];
                 const value = capacity - residual;
+
+                let color = undefined;
+                if (value === 0) {
+                    color = {color: "#d9c8cb"};
+                }
+
+                if (showResidualPath) {
+                    if (residualEdges.includes(node.name + "|" + key)
+                    || residualEdges.includes(key + "|" + node.name)) {
+                        color = {color: "#ff0000"};
+                    }
+                }
+
                 return {
                     from: node.name,
                     to: key,
                     value: value,
                     label: value + " / " + capacity,
                     title: value + " / " + capacity,
-                    color: value === 0 ? {color: "#d9c8cb"} : undefined
+                    color: color
                 };
             })
         )).reduce((acc, val) => acc.concat(val), []);
@@ -52,6 +70,19 @@ export class Renderer {
     destroy() {
         this.network.destroy();
     }
+}
+
+function findResidualEdges(network) {
+    const edges = [];
+
+    let v = network.getNode("sink");
+    while (v.name !== "source") {
+        let u = network.getNode(v.residualParent);
+        edges.push(u.name + "|" + v.name);
+        v = u;
+    }
+
+    return edges;
 }
 
 function findLevels(network) {

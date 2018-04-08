@@ -1,13 +1,18 @@
 
-export function calculateMaxFlow(network) {
+export function* calculateMaxFlow(network) {
     let maxFlow = 0;
 
     let iterations = 0;
     while (breadthFirst(network)) {
-        iterations++;
+        yield;
+        if (iterations++ > 10000) {
+            console.log("Aborting, probably infinite loop");
+            return -1;
+        }
         const minResidual = findMinResidual(network);
         maxFlow += minResidual;
         updateResiduals(network, minResidual);
+        yield;
     }
 
     console.log("iterations used:", iterations);

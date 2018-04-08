@@ -111,6 +111,7 @@ function bipartite() {
 
     return net;
 }
+
 function bipartite2() {
     const net = new FlowNetwork();
 
@@ -131,23 +132,28 @@ function bipartite2() {
 
 
 const network = bipartite2();
-
 let renderer = new Renderer(container, debug, network);
-calculateMaxFlow(network);
 renderer.renderNetwork();
-/*
-setTimeout(() => {
-    const maxflow = calculateMaxFlow(network);
-    renderer.renderNetwork();
-}, 1000);
+const iterator = calculateMaxFlow(network);
 
-setTimeout(() => {
-    renderer.destroy();
-    renderer = new Renderer(container, debug, network2);
-    renderer.renderNetwork();
-}, 2000);
+document.getElementById("next").addEventListener("click", iteratorFunc());
 
-setTimeout(() => {
-    calculateMaxFlow(network2);
+document.getElementById("finish").addEventListener("click", () => {
+    while (!iterator.next().done) {
+    }
+    document.getElementById("status").innerText = "Done";
     renderer.renderNetwork();
-}, 3000);*/
+});
+
+function iteratorFunc() {
+    let state = 0;
+    return () => {
+        const value = iterator.next();
+        renderer.renderNetwork(state % 2 === 0);
+        state = (state + 1) % 2;
+        if (value.done) {
+            renderer.renderNetwork();
+            document.getElementById("status").innerText = "Done";
+        }
+    }
+}
