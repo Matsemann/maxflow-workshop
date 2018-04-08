@@ -5,7 +5,7 @@ import {FlowNetwork} from "./network";
 import {calculateMaxFlow} from "./maxflow";
 import {testSuite} from "./unittests";
 
-testSuite();
+// testSuite();
 
 const container = document.getElementById("network");
 const debug = document.getElementById("controls");
@@ -81,7 +81,56 @@ function net3() {
     return net;
 }
 
-const network = net2();
+function bipartite() {
+    const net = new FlowNetwork();
+
+    net.createNode("l1");
+    net.createNode("l2");
+    net.createNode("l3");
+    net.createNode("l4");
+    net.createNode("l5");
+    net.createNode("r1");
+    net.createNode("r2");
+    net.createNode("r3");
+    net.createNode("r4");
+
+    for (let i = 1; i <= 5; i++) {
+        net.createEdge("source", "l" + i, 1);
+    }
+    for (let i = 1; i <= 4; i++) {
+        net.createEdge("r" + i, "sink", 1);
+    }
+    net.createEdge("l1", "r1", 1);
+    net.createEdge("l2", "r1", 1);
+    net.createEdge("l3", "r1", 1);
+    net.createEdge("l3", "r2", 1);
+    net.createEdge("l3", "r3", 1);
+    net.createEdge("l3", "r4", 1);
+    net.createEdge("l4", "r4", 1);
+    net.createEdge("l5", "r4", 1);
+
+    return net;
+}
+function bipartite2() {
+    const net = new FlowNetwork();
+
+    net.createNode("l1");
+    net.createNode("l2");
+    net.createNode("r1");
+    net.createNode("r2");
+    net.createEdge("source", "l1", 1);
+    net.createEdge("source", "l2", 1);
+    net.createEdge("l1", "r1", 1);
+    net.createEdge("l1", "r2", 1);
+    net.createEdge("l2", "r1", 1);
+    net.createEdge("r1", "sink", 1);
+    net.createEdge("r2", "sink", 1);
+
+    return net;
+}
+
+
+const network = bipartite2();
 
 let renderer = new Renderer(container, debug, network);
 calculateMaxFlow(network);

@@ -2,12 +2,15 @@
 export function calculateMaxFlow(network) {
     let maxFlow = 0;
 
+    let iterations = 0;
     while (breadthFirst(network)) {
+        iterations++;
         const minResidual = findMinResidual(network);
         maxFlow += minResidual;
         updateResiduals(network, minResidual);
     }
 
+    console.log("iterations used:", iterations);
     return maxFlow;
 }
 
