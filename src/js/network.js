@@ -9,7 +9,7 @@ export class FlowNetwork {
     }
 
     /**
-     * Create a new Node in the network and returns it
+     * Creates a new Node in the network and returns it
      * @param name String
      * @param level optionally where to render it
      * @returns {Node}
@@ -25,7 +25,7 @@ export class FlowNetwork {
     }
 
     /**
-     * Create edge of capacity between two nodes
+     * Creates edge of capacity between two nodes
      * @param from {String}
      * @param to {String}
      * @param capacity {Number}

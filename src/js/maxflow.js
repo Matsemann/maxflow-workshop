@@ -86,7 +86,7 @@ export function updateResiduals(network, flow) {
 /**
  * IMPLEMENT THIS
  *
- * Start at the sink node, do a breadth first search
+ * Start at the source node, do a breadth first search
  * Remember to set the residualParent of a node when visiting it
  *
  * Return true/false if a path was found to the sink
