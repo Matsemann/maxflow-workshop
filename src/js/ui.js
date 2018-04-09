@@ -1,5 +1,6 @@
 import {Renderer} from "./renderer";
 import {calculateMaxFlow, finishAlgorithm} from "./maxflow";
+import {testSuite} from "./unittests";
 
 export class UiState {
 
@@ -8,7 +9,7 @@ export class UiState {
         this.container = document.getElementById("network");
 
         createDropdown(this, networks);
-        createStepButtons(this);
+        addButtonBehavior(this);
 
         this.newNetwork(networks[0]);
     }
@@ -52,7 +53,9 @@ export class UiState {
 const resetButton = document.getElementById("reset");
 const nextButton = document.getElementById("next");
 const finishButton = document.getElementById("finish");
+const testButton = document.getElementById("tests");
 const messageEl = document.getElementById("status");
+const testMessage = document.getElementById("testStatus");
 
 function createDropdown(uiState, networks) {
     const dropdown = document.getElementById("networks");
@@ -73,7 +76,7 @@ function createDropdown(uiState, networks) {
     }
 }
 
-function createStepButtons(uiState) {
+function addButtonBehavior(uiState) {
     resetButton.addEventListener("click", () => {
         uiState.newNetwork(uiState.networkDef);
     });
@@ -83,6 +86,22 @@ function createStepButtons(uiState) {
     finishButton.addEventListener("click", () => {
         uiState.finishAlgorithm();
     });
+    testButton.addEventListener("click", () => {
+       runTests();
+    });
+}
+
+function runTests() {
+    console.log("Running unit tests");
+    const result = testSuite();
+    console.log("Test results", result);
+
+    const success = result.breadth && result.update && result.min && result.flow;
+    if (success) {
+        testMessage.innerHTML = '<span class="success">OK! All tests correct</span>';
+    } else {
+        testMessage.innerHTML = '<span class="error">ERROR! Some tests failed, see console for details</span>';
+    }
 }
 
 function finish(flow) {

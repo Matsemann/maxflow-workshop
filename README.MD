@@ -20,11 +20,11 @@ Edit the files and refresh your browser to see the changes
 
 * Render
 * UI
-  * Select network, show it
-  * Press button to solve
-  * ability to add new networks
+  * Prettify
+  * Run tests
 * Algorithm
-  * Unit tests, some more
+* Slides
+  * Explain residual network
 * Tasks
   * Explain datamodel, network -> model
   * Fill in blanks to make the algorithm solve the various networks

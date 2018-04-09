@@ -44,7 +44,7 @@ export class Renderer {
                 if (showResidualPath) {
                     if (residualEdges.includes(node.name + "|" + key)
                     || residualEdges.includes(key + "|" + node.name)) {
-                        color = {color: "#ff0000"};
+                        color = {color: "#c24d34"};
                     }
                 }
 

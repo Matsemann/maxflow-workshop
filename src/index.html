@@ -7,17 +7,34 @@
 </head>
 <body>
 
-<select id="networks"></select>
+<div id="container">
 
-<button id="reset">Reset</button>
-<button id="next">Next step</button>
-<button id="finish">Solve</button>
-<span id="status"></span>
+    <h1>Maximum Flow workshop</h1>
+    <p>
+        A workshop where you write your your own solver to "maximum flow problems",
+        and then model other problems as flow networks.
+        See <a href="https://github.com/Matsemann/maxflow-workshop">the code and README on GitHub</a>
+        on how to do it.
+    </p>
 
-<div id="network"></div>
+    <hr>
+    <button id="tests">Run unit tests</button>
+    <span id="testStatus"></span>
 
-<div id="controls"></div>
+    <hr>
 
+    <select id="networks"></select>
+
+    <button id="next">Next step</button>
+    <button id="finish">Solve</button>
+    <button id="reset">Reset</button>
+    <span id="status"></span>
+
+    <div id="network"></div>
+
+    <div id="controls"></div>
+
+</div>
 
 <script src="bundle.js"></script>
 </body>

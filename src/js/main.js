@@ -1,14 +1,9 @@
 import css from '../css/styles.css';
 import 'vis/dist/vis-network.min.css';
-import {Renderer} from "./renderer";
 import {FlowNetwork} from "./network";
-import {calculateMaxFlow, finishAlgorithm} from "./maxflow";
-import {testSuite} from "./unittests";
 import {simpleBipartite} from "./networks/simpleBipartite";
 import {UiState} from "./ui";
 import {randomBipartite} from "./networks/randomBipartite";
-
-testSuite();
 
 
 new UiState([
