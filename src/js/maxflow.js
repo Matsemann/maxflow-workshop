@@ -42,6 +42,43 @@ export function finishAlgorithm(algorithm) {
 /**
  * IMPLEMENT THIS
  *
+ * Start at the source node, do a breadth first search
+ * Remember to set the residualParent of a node when visiting it
+ *
+ * Return true/false if a path was found to the sink
+ *
+ * @param network {FlowNetwork}
+ * @returns {boolean} If a path was found
+ */
+export function breadthFirst(network) {
+    const visited = [];
+    const queue = ["source"];
+
+    while (queue.length !== 0) {
+        const nodeName = queue.shift();
+        const node = network.getNode(nodeName);
+
+        for (let other in node.residuals) {
+            if (!visited.includes(other) && node.residuals[other] > 0) {
+                queue.push(other);
+                visited.push(other);
+
+                const otherNode = network.getNode(other);
+                otherNode.residualParent = nodeName;
+
+                if (other === "sink") { // found it
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * IMPLEMENT THIS
+ *
  * Go backwards from the sink to the source using the residual parents.
  * Return the most flow that can be added through that path
  * @param network {FlowNetwork}
@@ -81,41 +118,4 @@ export function updateResiduals(network, flow) {
         v.residuals[u.name] += flow;
         v = u;
     }
-}
-
-/**
- * IMPLEMENT THIS
- *
- * Start at the source node, do a breadth first search
- * Remember to set the residualParent of a node when visiting it
- *
- * Return true/false if a path was found to the sink
- *
- * @param network {FlowNetwork}
- * @returns {boolean} If a path was found
- */
-export function breadthFirst(network) {
-    const visited = [];
-    const queue = ["source"];
-
-    while (queue.length !== 0) {
-        const nodeName = queue.shift();
-        const node = network.getNode(nodeName);
-
-        for (let other in node.residuals) {
-            if (!visited.includes(other) && node.residuals[other] > 0) {
-                queue.push(other);
-                visited.push(other);
-
-                const otherNode = network.getNode(other);
-                otherNode.residualParent = nodeName;
-
-                if (other === "sink") { // found it
-                    return true;
-                }
-            }
-        }
-    }
-
-    return false;
 }
