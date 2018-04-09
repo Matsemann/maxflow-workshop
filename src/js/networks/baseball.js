@@ -3,6 +3,7 @@ import {FlowNetwork} from "../network";
 /**
  * IMPLEMENT
  *
+ * See http://coursera.cs.princeton.edu/algs4/assignments/baseball.html
  *
  */
 export const baseball = [
@@ -11,8 +12,8 @@ export const baseball = [
         generateNetwork: () => {
             const net = new FlowNetwork();
 
-            const team = 4;
-            const {teams, points, remainingGames, upcomingGames} = usaData1;
+            const {teams, points, remainingGames, upcomingGames} = usaData1; // which case
+            const team = 4; // which team nr are we checking can win?
 
             // calculate our team's theoretical max score
             const maxScore = points[team] + remainingGames[team];
@@ -48,7 +49,6 @@ export const baseball = [
                     net.createEdge(gameName, teams[j], 99);
                 }
             }
-
 
             return net;
         }

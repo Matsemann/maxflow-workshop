@@ -36,14 +36,14 @@ Residuals contains the name of other nodes that is connected to it by an edge, a
 Note that when an edge is created from `a` to `b`, a residual edge is also created in the opposite direction.
 `residualParent` is for backtracking after the breadt first search.
 
-When working with residual, you only have the name of the nodes. You can use `network.getNode("nodeName)`
-to get the actual node when needed.
+When working with a node, you only have the *name* of the other nodes. You can use `network.getNode("nodeName)`
+to get the actual node it points to when needed.
 
 To implement the algorithm, follow the tasks below and edit in the `maxflow.js` file.
 There are unit tests that can be run by clicking in the UI and watching the result in dev tools, 
 see the test-files for expected behavior.
 
-#### Implement breadth first search
+#### 1.1 Implement breadth first search
 
 Start from the source, and search until you find the sink.
 When first seeing a node, set the `residualParent` to the current node you found it from and mark it as visited.
@@ -59,7 +59,7 @@ let node = queue.shift(); // pop from front
 
 Run the tests and verify that the implementation is correct before moving on.
 
-#### Implement findMinResidual
+#### 1.2 Implement findMinResidual
 
 Start from the sink, and move backwards through residualParents until you reach the source.
 While doing that, find the smallest residue in the path and return it.
@@ -70,7 +70,7 @@ this means that you should find the min residual of node1->sink and source->node
 
 Run the tests and verify that the implementation is correct before moving on.
 
-#### Implement updateResiduals
+#### 1.3 Implement updateResiduals
 
 Start from the sink and move backwards through residualParents in the same way.
 This time you know the flow that can be added through that path. 
@@ -82,15 +82,38 @@ we should subtract 2 from node1->sink, and source->node1, and then add 2 to sink
 
 Run the tests and verify that the implementation is correct before moving on.
 
-#### Test some networks
+#### 1.4 Test some networks
 
 If all tests are green, the algorithm should now be finished and usable on networks.
 Select various networks from the dropdown and step through to view the steps of the algorithm.
 
 Some networks are empty, those are up to you to implement ;)
 
-### Implement networks
+### 2. Implement networks
 
+The fun with max flow is to use it to solve various problems.
+
+Do them in the order you want.
+
+#### 2.1 Twists (easiest one)
+
+#### 2.2 Movie planning
+
+You are the director of the upcoming movie "Die Hard: Max Flow Hard", 
+and need to make a schedule for when the actors should practice on the various scenes.
+
+You have the following:
+ * A set of scenes, and for how many days each scene should be practiced
+ * A list of actors, and the days which each actor is available
+ * Which actors that should be present for each scene
+ 
+Model the problem as a flow network to find a schedule that works.
+
+TODO hint?
+
+#### 2.3 Baseball
+
+#### 2.4 Jupiter Orbiter
 
 ##TODO
 
