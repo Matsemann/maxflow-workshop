@@ -51,28 +51,6 @@ export function finishAlgorithm(algorithm) {
  * @returns {boolean} If a path was found
  */
 export function breadthFirst(network) {
-    const visited = [];
-    const queue = ["source"];
-
-    while (queue.length !== 0) {
-        const nodeName = queue.shift();
-        const node = network.getNode(nodeName);
-
-        for (let other in node.residuals) {
-            if (!visited.includes(other) && node.residuals[other] > 0) {
-                queue.push(other);
-                visited.push(other);
-
-                const otherNode = network.getNode(other);
-                otherNode.residualParent = nodeName;
-
-                if (other === "sink") { // found it
-                    return true;
-                }
-            }
-        }
-    }
-
     return false;
 }
 
@@ -85,18 +63,7 @@ export function breadthFirst(network) {
  * @returns {number}
  */
 export function findMinResidual(network) {
-    let min = Number.MAX_SAFE_INTEGER;
-    let v = network.getNode("sink");
-    while (v.name !== "source") {
-        let u = network.getNode(v.residualParent);
-        let residual = u.residuals[v.name];
-        if (residual < min) {
-            min = residual;
-        }
-        v = u;
-    }
 
-    return min;
 }
 
 /**
@@ -110,12 +77,5 @@ export function findMinResidual(network) {
  * @param flow
  */
 export function updateResiduals(network, flow) {
-    let v = network.getNode("sink");
-    while (v.name !== "source") {
-        let u = network.getNode(v.residualParent);
 
-        u.residuals[v.name] -= flow;
-        v.residuals[u.name] += flow;
-        v = u;
-    }
 }

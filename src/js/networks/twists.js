@@ -11,21 +11,7 @@ export const twists = [{
     generateNetwork: () => {
         const net = new FlowNetwork();
 
-        data.twists.forEach(twist => {
-            net.createNode(twist.name);
-            net.createEdge(twist.name, "sink", twist.amount);
-        });
-
-        data.people.forEach(person => {
-            net.createNode(person.name);
-            net.createEdge("source", person.name, data.maxTwistsPerPerson);
-
-            person.wishes.forEach(wish => {
-                net.createEdge(person.name, wish.twist, wish.amount);
-            })
-
-        });
-
+        // Build net
 
         return net;
     }

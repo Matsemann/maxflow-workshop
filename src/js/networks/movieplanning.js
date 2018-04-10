@@ -12,30 +12,7 @@ export const movieplanning = [
 
             const {scenes, days, actors} = dieHardData;
 
-            // Add the days
-            days.forEach(day => {
-                net.createNode(day);
-                net.createEdge(day, "sink", 1);
-            });
-
-            scenes.forEach(scene => {
-                // Add scene
-                net.createNode(scene.name);
-                net.createEdge("source", scene.name, scene.daysToPractice);
-
-                // Only add edge to days where all actors are available
-                days.forEach(day => {
-                    for (let i = 0; i < scene.actors.length; i++) {
-                        let actorName = scene.actors[i];
-                        if (!actors[actorName].includes(day)) {
-                            return;
-                        }
-                    }
-                    // If we reach here all actors are available that day
-                    net.createEdge(scene.name, day, 1);
-                })
-
-            });
+            // build net
 
             return net;
         }
