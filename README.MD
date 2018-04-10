@@ -1,6 +1,6 @@
 # Max flow workshop
 
-A workshop where you
+This is a workshop where you
 * Write an algorithm to solve maximum flow problems (Ford-Fulkerson/Edmonds-Karp)
 * Model problems as max flow problems
 * ... in your browser
@@ -14,7 +14,7 @@ npm start
 
 Then browse to http://localhost:8099
 
-Edit the files and refresh your browser to see the changes
+Later when editing the files, refresh your browser to immediately see the changes.
 
 ### Tasks
 
@@ -22,7 +22,9 @@ This workshop contains javascript files, where you are supposed to fill in the b
 There are two types of tasks. First you will complete the algorithm. 
 Then you will create your own flow networks to solve various problems.
 
+### HELP?!
 
+Just ask. There is also a branch called ["solution"](https://github.com/Matsemann/maxflow-workshop/tree/uten-losning/src/js) you can take a look at if you're stuck.
 
 ## 1. Implement the algorithm
 
@@ -33,16 +35,17 @@ Nodes can be created by supplying a *unique* name. Edges can be created by provi
 the from and to nodes, and the capacity as the third parameter.
 
 A node holds various values. The most relevant ones are `residuals` and `residualParent`.
-Residuals contains the name of other nodes that is connected to it by an edge, and the capacity left.
+The `residuals` variable is a map where the keys are name of other nodes this node is connected to by an edge, and the values
+are the capacities left on those edges.
 Note that when an edge is created from `a` to `b`, a residual edge is also created in the opposite direction.
 `residualParent` is for backtracking after the breadt first search.
 
-When working with a node, you only have the *name* of the other nodes. You can use `network.getNode("nodeName)`
+When working with a node, you only have the *name* of the other nodes. You can use `network.getNode("nodeName")`
 to get the actual node it points to when needed.
 
 To implement the algorithm, follow the tasks below and edit in the `maxflow.js` file.
-There are unit tests that can be run by clicking in the UI and watching the result in dev tools, 
-see the test-files for expected behavior.
+There are unit tests that can be run by clicking in the UI and watching the result in dev tools. 
+See the test-files for expected behavior.
 
 
 ### 1.1 Implement breadth first search
@@ -54,7 +57,7 @@ The function should return true/false, whether a path from source to sink could 
 
 Tip: To implement a queue in Javascript, you can use an array.
 ```
-const queue = ["];
+const queue = [];
 queue.push("source"); // add to back
 let node = queue.shift(); // pop from front
 ```
@@ -115,6 +118,7 @@ Use this to make a flow network, fill in `js/networks/twists.js`. When solved us
 who gets what twists. Note that this will solve for maximum amount of twists being eaten,
 not necessarily being fair...
 
+---
 
 ### 2.2 Movie planning
 
@@ -130,6 +134,7 @@ Model the problem as a flow network to find a schedule that works, by filling in
 
 Hint: Some logic / precomputation is needed before making the network
 
+---
 
 ### 2.3 Baseball
 
@@ -149,7 +154,7 @@ Detroit     49      27          3   4   0   0   -
 
 Is it possible for Detroit to win the league? Well, they can get 49+27 = 76 points.
 But for them to win, we will then have to assume that New York don't win another game.
-New York have 8 games left with Boston, so if New York has to lose, then Boston will have to win
+New York has 8 games left with Boston, so if New York has to lose, then Boston will have to win
 those 8 games, that gives Boston 77 points. So it's impossible for Detroit to win.
 
 But figuring that out for complex cases by hand is hard, it's much better to model it as a flow network ;)
@@ -195,6 +200,8 @@ can also change it to use a different set of data, and solve for Japan.
 * Algorithm
 * Slides
   * Explain residual network
+  * Explain todays tasks
+  * Explain how to start (github, edit files etc)
 * Tasks
   * Jupiter orbiter
 * Publish
