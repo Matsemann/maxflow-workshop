@@ -1,5 +1,6 @@
 import {FlowNetwork} from "./network";
 import {breadthFirst, calculateMaxFlow, findMinResidual, finishAlgorithm, updateResiduals} from "./maxflow";
+import {longerOnes} from "./networks/longerOnes";
 
 export function testSuite() {
     const results = {};
@@ -55,6 +56,20 @@ export function testSuite() {
             expect("r1", net.getNode("l1").residualParent);
             expect("l2", net.getNode("r1").residualParent);
             expect("source", net.getNode("l2").residualParent);
+        });
+        it("should find path of correct length for advanced graph", () => {
+            const net = longerOnes[0].generateNetwork();
+
+            breadthFirst(net);
+
+            let steps = 0;
+            let u = net.getNode("sink");
+            while (u.name !== "source") {
+                steps++;
+                u = net.getNode(u.residualParent);
+            }
+
+            expect(2, steps);
         });
         results.breadth = true;
     });
