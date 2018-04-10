@@ -3,7 +3,7 @@
 This is a workshop where you
 * Write an algorithm to solve maximum flow problems (Ford-Fulkerson/Edmonds-Karp)
 * Model problems as max flow problems
-* ... in your browser
+* ... in [your browser](https://matsemann.github.io/maxflow-workshop/)
 
 ### To run
 
