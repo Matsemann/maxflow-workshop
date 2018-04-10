@@ -16,14 +16,14 @@ Then browse to http://localhost:8099
 
 Edit the files and refresh your browser to see the changes
 
-## Tasks
+### Tasks
 
 This workshop contains javascript files, where you are supposed to fill in the blanks.
 There are two types of tasks. First you will complete the algorithm. 
 Then you will create your own flow networks to solve various problems.
 
 
-### 1. Implement the algorithm
+## 1. Implement the algorithm
 
 Before starting, it can be useful to get to know some of the code you have been handed.
 The most important part is in `network.js`. This is the API for the network. As you can see,
@@ -43,7 +43,7 @@ To implement the algorithm, follow the tasks below and edit in the `maxflow.js` 
 There are unit tests that can be run by clicking in the UI and watching the result in dev tools, 
 see the test-files for expected behavior.
 
-#### 1.1 Implement breadth first search
+### 1.1 Implement breadth first search
 
 Start from the source, and search until you find the sink.
 When first seeing a node, set the `residualParent` to the current node you found it from and mark it as visited.
@@ -59,7 +59,7 @@ let node = queue.shift(); // pop from front
 
 Run the tests and verify that the implementation is correct before moving on.
 
-#### 1.2 Implement findMinResidual
+### 1.2 Implement findMinResidual
 
 Start from the sink, and move backwards through residualParents until you reach the source.
 While doing that, find the smallest residue in the path and return it.
@@ -70,7 +70,7 @@ this means that you should find the min residual of node1->sink and source->node
 
 Run the tests and verify that the implementation is correct before moving on.
 
-#### 1.3 Implement updateResiduals
+### 1.3 Implement updateResiduals
 
 Start from the sink and move backwards through residualParents in the same way.
 This time you know the flow that can be added through that path. 
@@ -82,20 +82,20 @@ we should subtract 2 from node1->sink, and source->node1, and then add 2 to sink
 
 Run the tests and verify that the implementation is correct before moving on.
 
-#### 1.4 Test some networks
+### 1.4 Test some networks
 
 If all tests are green, the algorithm should now be finished and usable on networks.
 Select various networks from the dropdown and step through to view the steps of the algorithm.
 
 Some networks are empty, those are up to you to implement ;)
 
-### 2. Implement networks
+## 2. Implement networks
 
 The fun with max flow is to use it to solve various problems.
 
 Do them in the order you want.
 
-#### 2.1 Twists (easiest one)
+### 2.1 Twists (easiest one)
 
 People are very passionate about Twists, but I think we all can agree that Cocos is the best.
 
@@ -108,7 +108,7 @@ Use this to make a flow network, fill in `js/networks/twists.js`. When solved us
 who gets what twists. Note that this will solve for maximum amount of twists being eaten,
 not necessarily being fair...
 
-#### 2.2 Movie planning
+### 2.2 Movie planning
 
 You are the director of the upcoming movie "Die Hard: Max Flow Hard", 
 and need to make a schedule for when the actors should practice on the various scenes.
@@ -122,7 +122,7 @@ Model the problem as a flow network to find a schedule that works, by filling in
 
 Hint: Some logic / precomputation is needed before making the network
 
-#### 2.3 Baseball
+### 2.3 Baseball
 
 Given the standings in a league, you should determine if a given team
 still has a mathematically chance to win the league. Here I have chosen baseball, as 
@@ -174,7 +174,7 @@ If not all games can be played, they cannot win, as playing the last games will 
 In the data you have been given, try to change New York points to 74 and see if Detroit then can win. You
 can also change it to use a different set of data, and solve for Japan.
 
-#### 2.4 Jupiter Orbiter
+### 2.4 Jupiter Orbiter
 
 // TODO
 
