@@ -44,6 +44,7 @@ To implement the algorithm, follow the tasks below and edit in the `maxflow.js` 
 There are unit tests that can be run by clicking in the UI and watching the result in dev tools, 
 see the test-files for expected behavior.
 
+
 ### 1.1 Implement breadth first search
 
 Start from the source, and search until you find the sink.
@@ -60,6 +61,7 @@ let node = queue.shift(); // pop from front
 
 Run the tests and verify that the implementation is correct before moving on.
 
+
 ### 1.2 Implement findMinResidual
 
 Start from the sink, and move backwards through residualParents until you reach the source.
@@ -70,6 +72,7 @@ For instance, if sink's residual parent is node1, and node1's residual parent is
 this means that you should find the min residual of node1->sink and source->node1 and return it.
 
 Run the tests and verify that the implementation is correct before moving on.
+
 
 ### 1.3 Implement updateResiduals
 
@@ -83,6 +86,7 @@ we should subtract 2 from node1->sink, and source->node1, and then add 2 to sink
 
 Run the tests and verify that the implementation is correct before moving on.
 
+
 ### 1.4 Test some networks
 
 If all tests are green, the algorithm should now be finished and usable on networks.
@@ -90,11 +94,13 @@ Select various networks from the dropdown and step through to view the steps of 
 
 Some networks are empty, those are up to you to implement ;)
 
+
 ## 2. Implement networks
 
 The fun with max flow is to use it to solve various problems.
 
 Do them in the order you want.
+
 
 ### 2.1 Twists (easiest one)
 
@@ -109,6 +115,7 @@ Use this to make a flow network, fill in `js/networks/twists.js`. When solved us
 who gets what twists. Note that this will solve for maximum amount of twists being eaten,
 not necessarily being fair...
 
+
 ### 2.2 Movie planning
 
 You are the director of the upcoming movie "Die Hard: Max Flow Hard", 
@@ -122,6 +129,7 @@ You have the following:
 Model the problem as a flow network to find a schedule that works, by filling in `js/networks/movieplanning.js`.
 
 Hint: Some logic / precomputation is needed before making the network
+
 
 ### 2.3 Baseball
 
@@ -174,6 +182,7 @@ If not all games can be played, they cannot win, as playing the last games will 
 
 In the data you have been given, try to change New York points to 74 and see if Detroit then can win. You
 can also change it to use a different set of data, and solve for Japan.
+
 
 ### 2.4 Jupiter Orbiter
 
