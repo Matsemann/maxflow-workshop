@@ -12,12 +12,12 @@ export const twists = [{
         const net = new FlowNetwork();
 
         data.twists.forEach(twist => {
-            net.createNode(twist.name, 2);
+            net.createNode(twist.name);
             net.createEdge(twist.name, "sink", twist.amount);
         });
 
         data.people.forEach(person => {
-            net.createNode(person.name, 1);
+            net.createNode(person.name);
             net.createEdge("source", person.name, data.maxTwistsPerPerson);
 
             person.wishes.forEach(wish => {
@@ -26,7 +26,6 @@ export const twists = [{
 
         });
 
-        net.getNode("sink").level = 3;
 
         return net;
     }

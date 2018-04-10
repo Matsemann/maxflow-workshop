@@ -31,7 +31,7 @@ export const movieplanning = [
                             return;
                         }
                     }
-                    // If we reach here all actors are avaialable that day
+                    // If we reach here all actors are available that day
                     net.createEdge(scene.name, day, 1);
                 })
 
