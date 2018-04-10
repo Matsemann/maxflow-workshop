@@ -188,7 +188,7 @@ If not all games can be played, they cannot win, as playing the last games will 
 In the data you have been given, try to change New York points to 74 and see if Detroit then can win. You
 can also change it to use a different set of data, and solve for Japan.
 
-![baseball flow](baseball.png])
+![baseball flow](baseball.png)
 
 ### 2.4 Jupiter Orbiter
 
