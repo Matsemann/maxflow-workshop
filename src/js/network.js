@@ -70,6 +70,7 @@ export class Node {
         /**
          * Map where key is name of other node,
          * value is original capacity of the edge between them
+         * Only used for rendering
          */
         this.edgeCapacities = {};
     }

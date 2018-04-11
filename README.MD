@@ -26,6 +26,8 @@ Then you will create your own flow networks to solve various problems.
 
 Just ask. There is also a branch called ["solution"](https://github.com/Matsemann/maxflow-workshop/tree/uten-losning/src/js) you can take a look at if you're stuck.
 
+The slides also have some more details that can be useful.
+
 ## 1. Implement the algorithm
 
 Before starting, it can be useful to get to know some of the code you have been handed.
@@ -55,14 +57,29 @@ When first seeing a node, set the `residualParent` to the current node you found
 Remember that you only should follow edges having `residual > 0`.
 The function should return true/false, whether a path from source to sink could be found or not.
 
-Tip: To implement a queue in Javascript, you can use an array.
+Tip: See slides for more details on how the breadth first search works.  
+Here are some javascript-snippets you might find useful:
 ```
+// working with a queue
 const queue = [];
 queue.push("source"); // add to back
 let node = queue.shift(); // pop from front
+while (queue.length !== 0) { // queue is not empty
+
+// working with a set of visited
+const visited = [];
+visited.push("nodeName");
+visited.includes("nodeName"); // returns true
+
+// iterate over a node's neighbours:
+for (let neighbour in node.residuals) {
+    let residual = node.residuals[neighbour];
+    //...
+}
 ```
 
-Run the tests and verify that the implementation is correct before moving on.
+*Refresh* the browser and run the tests to verify that the implementation is correct before moving on. 
+Note: the breadth first test should show OK in the console of your browser, the other two should still fail.
 
 
 ### 1.2 Implement findMinResidual
@@ -76,11 +93,20 @@ this means that you should find the min residual of node1->sink and source->node
 
 Run the tests and verify that the implementation is correct before moving on.
 
+Useful snippets:
+```
+let min = Number.MAX_SAFE_INTEGER;
+network.getNode("sink"); // to get the sink to start traversing
+```
 
 ### 1.3 Implement updateResiduals
 
 Start from the sink and move backwards through residualParents in the same way.
 This time you know the flow that can be added through that path. 
+
+You calculated the flow that can be added in the last step. So this time, you go through the same path and add that
+flow to the paths.
+
 So remove residual from the path from residualParent to the current node, and remember
 to add the same amount to the opposite residual path.
 
@@ -101,22 +127,24 @@ Some networks are empty, those are up to you to implement ;)
 ## 2. Implement networks
 
 The fun with max flow is to use it to solve various problems.
+To solve these, use the API in `FlowNetwork` to create Nodes and Edges, see `longerOnes.js` for examples.
 
 Do them in the order you want.
 
 
-### 2.1 Twists (easiest one)
+### 2.1 Twist (easiest one) (and tastiest)
 
-People are very passionate about Twists, but I think we all can agree that Cocos is the best.
+People are very passionate about Twist, but I think we all can agree that Cocos is the best.
 
 You are given:
  * A list of twists and the amount of each in the package
  * A list of people and their wishes
  * The maximum twists a person should get
  
-Use this to make a flow network, fill in `js/networks/twists.js`. When solved using maximum flow, it should display
-who gets what twists. Note that this will solve for maximum amount of twists being eaten,
+Use this to make a flow network, fill in `js/networks/twists.js`. When solved using maximum flow, you can look
+at the solved network to see who should get which Twist. Note that this will solve for maximum amount of twists being eaten,
 not necessarily being fair...
+
 
 ---
 
@@ -190,21 +218,11 @@ can also change it to use a different set of data, and solve for Japan.
 
 ![baseball flow](baseball.png)
 
+---
+
 ### 2.4 Jupiter Orbiter
 
-// TODO
+Bonus: Can you solve this hard problem on Kattis? https://open.kattis.com/problems/jupiter
 
-## TODO
-
-* Render
-* UI
-* Algorithm
-* Slides
-  * Explain residual network
-  * Explain todays tasks
-  * Explain how to start (github, edit files etc)
-* Tasks
-  * Jupiter orbiter
-* Publish
-    * Build
-    * GH pages
+Hint: It can be solved making a network and computing the maximum flow, then seeing if the flow
+in the end equals the amount of data you wanted to send.
