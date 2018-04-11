@@ -24,7 +24,7 @@ Then you will create your own flow networks to solve various problems.
 
 ### HELP?!
 
-Just ask. There is also a branch called ["solution"](https://github.com/Matsemann/maxflow-workshop/tree/uten-losning/src/js) you can take a look at if you're stuck.
+Just ask. There is also a branch called ["solution"](https://github.com/Matsemann/maxflow-workshop/tree/solution/src/js) you can take a look at if you're stuck.
 
 The slides also have some more details that can be useful.
 
